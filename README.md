@@ -1,6 +1,5 @@
 Preview of the website
 
-https://github.com/iharsh-g/StudyNotion/assets/79085857/fac78a75-694d-45f3-a9da-8b6ba04babb1
+https://github.com/iharsh-g/Dalle-Image-Generator/assets/79085857/fea06a13-eb18-44e1-99e1-ef33fca2f42d
 
-
-https://github.com/iharsh-g/StudyNotion/assets/79085857/2d6efe55-8341-463f-91ed-8b5f27310a80
+https://github.com/iharsh-g/Dalle-Image-Generator/assets/79085857/8c759309-9734-4337-82fe-cbf3c615a292
