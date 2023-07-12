@@ -7,9 +7,10 @@ import Loader from '../components/Loader'
 function Home() {
     const dispatch = useDispatch();
     const {allProducts, isLoading} = useSelector((state) => state.products);
+    const {token} = useSelector((state) => state.auth);
 
     useEffect(() => {
-        dispatch(fetchProducts(false, ''));
+        dispatch(fetchProducts(false, '', token));
     }, []);
     
     return (

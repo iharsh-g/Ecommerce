@@ -43,7 +43,7 @@ function ProductCardDetails() {
     const {token} = useSelector((state) => state.auth);
 
     useEffect(() => {
-        dispatch(fetchProductById(productId));
+        dispatch(fetchProductById(productId, token));
     }, [productId])
 
     function addToCartHandler() {
@@ -117,7 +117,7 @@ function ProductCardDetails() {
     }
 
     async function handlerAddReview() {
-        await dispatch(addOrUpdateReview(productId, rating, review));
+        await dispatch(addOrUpdateReview(productId, rating, review, token));
         
         dispatch(fetchProductById(productId));
       

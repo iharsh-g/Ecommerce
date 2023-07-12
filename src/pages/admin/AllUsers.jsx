@@ -33,7 +33,7 @@ function AllUsers() {
             navigate("/account");
         }
 
-        dispatch(fetchUsers());
+        dispatch(fetchUsers(token));
     }, [userDetails]);
 
     // console.log(allUsers);
@@ -56,8 +56,8 @@ function AllUsers() {
     // When admin click in the dialog box to delete
     async function deleteUserHandler() {
         setOpen(false);
-        await dispatch(deleteUser(deleteId, navigate))
-        dispatch(fetchUsers());
+        await dispatch(deleteUser(deleteId, navigate, token))
+        dispatch(fetchUsers(token));
     }
 
     return (

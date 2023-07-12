@@ -27,6 +27,7 @@ function Products() {
     //Redux
     const dispatch = useDispatch();
     const {filteredProducts, isLoading} = useSelector((state) => state.products);
+    const {token} = useSelector((state) => state.auth);
 
     //Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +45,7 @@ function Products() {
     const [category, setCategory] = useState('All');
 
     function fetchFilteredProducts() {
-        dispatch(fetchFilterProducts(category, currentPage, value, rating))
+        dispatch(fetchFilterProducts(category, currentPage, value, rating, token))
     }
 
     //First time calling or currentpage changed
@@ -59,7 +60,7 @@ function Products() {
 
     return (
         <div className='relative'>
-            <div className='lg:w-[1200px] mx-auto relative'>
+            <div className='lg:max-w-[1200px] mx-auto relative'>
                 {
                     filteredProducts?.data &&
                     filteredProducts.data.length === 0 ?

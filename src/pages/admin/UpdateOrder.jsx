@@ -26,7 +26,7 @@ function UpdateOrder() {
             navigate("/account");
         }
 
-        dispatch(fetchOrderDetails(id));
+        dispatch(fetchOrderDetails(id, token));
     }, [userDetails]);
 
     // console.log(orderDetails);
@@ -36,7 +36,7 @@ function UpdateOrder() {
             return;
         }
 
-        dispatch(updateOrder(id, category, navigate));
+        dispatch(updateOrder(id, category, navigate, token));
     }
 
   return (

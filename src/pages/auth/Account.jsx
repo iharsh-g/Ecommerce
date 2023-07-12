@@ -30,7 +30,7 @@ function Account() {
             return;
         }
 
-        dispatch(updateUserName(name));
+        dispatch(updateUserName(name, token));
         setClickedPencil(false);
     }
 

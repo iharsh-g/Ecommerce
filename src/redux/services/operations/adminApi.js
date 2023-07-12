@@ -13,13 +13,13 @@ const { ADMIN_ALL_ORDERS, ADMIN_UPDATE_ORDER, ADMIN_DELETE_ORDER, FETCH_ORDER_WI
 ***************************************************************************************************************************************************************
 */
 // Admin - all products
-export function fetchProducts() {
+export function fetchProducts(token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", ADMIN_FETCH_PRODUCTS);
+            const response = await apiConnector("GET", ADMIN_FETCH_PRODUCTS, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setProducts(response.data.products))
@@ -42,6 +42,7 @@ export function createProduct(data, navigate, token) {
 
         try {
             const response = await apiConnector("POST", ADMIN_CREATE_PRODUCT, data, {
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
             });
 
@@ -61,13 +62,13 @@ export function createProduct(data, navigate, token) {
 }
 
 // Admin - Fetch Product by Id
-export function fectchProductDetails(id) {
+export function fetchProductDetails(id, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", `${FETCH_PRODUCT_WITH_ID}/${id}`);
+            const response = await apiConnector("GET", `${FETCH_PRODUCT_WITH_ID}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setProduct(response.data.productDetails[0]));
@@ -83,7 +84,7 @@ export function fectchProductDetails(id) {
 }
 
 // Admin - Update Product
-export function updateProduct(id, data, navigate) {
+export function updateProduct(id, data, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
@@ -92,6 +93,7 @@ export function updateProduct(id, data, navigate) {
 
         try {
             const response = await apiConnector("PUT", `${ADMIN_UPDATE_PRODUCT}/${id}`, data, {
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
             });
 
@@ -111,13 +113,13 @@ export function updateProduct(id, data, navigate) {
 }
 
 // Admin - Delete Product
-export function deleteProduct(id, navigate) {
+export function deleteProduct(id, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("DELETE", `${ADMIN_DELETE_PRODUCT}/${id}`);
+            const response = await apiConnector("DELETE", `${ADMIN_DELETE_PRODUCT}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("Product Deleted Successfully");
@@ -137,13 +139,13 @@ export function deleteProduct(id, navigate) {
 ***************************************************************************************************************************************************************
 */
 // Admin - all orders
-export function fetchOrders() {
+export function fetchOrders(token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", ADMIN_ALL_ORDERS);
+            const response = await apiConnector("GET", ADMIN_ALL_ORDERS, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setOrders(response.data.orders))
@@ -159,13 +161,13 @@ export function fetchOrders() {
 }
 
 // Admin - Fetch Order by Id
-export function fetchOrderDetails(id) {
+export function fetchOrderDetails(id, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", `${FETCH_ORDER_WITH_ID}/${id}`);
+            const response = await apiConnector("GET", `${FETCH_ORDER_WITH_ID}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setOrder(response.data.orderDetails));
@@ -181,13 +183,13 @@ export function fetchOrderDetails(id) {
 }
 
 // Admin - Update Order
-export function updateOrder(id, status, navigate) {
+export function updateOrder(id, status, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("PUT", `${ADMIN_UPDATE_ORDER}/${id}`, {status});
+            const response = await apiConnector("PUT", `${ADMIN_UPDATE_ORDER}/${id}`, {status}, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("Order Updated Successfully");
@@ -204,13 +206,13 @@ export function updateOrder(id, status, navigate) {
 }
 
 // Admin - Delete Order
-export function deleteOrder(id, navigate) {
+export function deleteOrder(id, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("DELETE", `${ADMIN_DELETE_ORDER}/${id}`);
+            const response = await apiConnector("DELETE", `${ADMIN_DELETE_ORDER}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("Order Deleted Successfully");
@@ -230,13 +232,13 @@ export function deleteOrder(id, navigate) {
 ***************************************************************************************************************************************************************
 */
 // Admin - all Users
-export function fetchUsers() {
+export function fetchUsers(token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", ADMIN_ALL_USERS);
+            const response = await apiConnector("GET", ADMIN_ALL_USERS, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setUsers(response.data.allUsers))
@@ -252,13 +254,13 @@ export function fetchUsers() {
 }
 
 // Admin - User by ID
-export function fetchUser(id) {
+export function fetchUser(id, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", `${ADMIN_USER}/${id}`);
+            const response = await apiConnector("GET", `${ADMIN_USER}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setUserById(response.data.userDetails))
@@ -274,13 +276,13 @@ export function fetchUser(id) {
 }
 
 // Admin - Update User
-export function updateUser(id, role, navigate) {
+export function updateUser(id, role, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("PUT", `${ADMIN_USER}/${id}`, {role});
+            const response = await apiConnector("PUT", `${ADMIN_USER}/${id}`, {role}, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("User Updated Successfully");
@@ -297,13 +299,13 @@ export function updateUser(id, role, navigate) {
 }
 
 // Admin - Delete User
-export function deleteUser(id, navigate) {
+export function deleteUser(id, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("DELETE", `${ADMIN_USER}/${id}`);
+            const response = await apiConnector("DELETE", `${ADMIN_USER}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("User Deleted Successfully");
@@ -324,13 +326,13 @@ export function deleteUser(id, navigate) {
 */
 
 // Admin - all reviews of a product
-export function fetchReviews(id) {
+export function fetchReviews(id, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("GET", `${GET_REVIEWS}/${id}`);
+            const response = await apiConnector("GET", `${GET_REVIEWS}/${id}`, null, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 dispatch(setReview(response.data.reviews))
@@ -347,13 +349,13 @@ export function fetchReviews(id) {
 }
 
 // Admin - deleteReview
-export function delelteReview(productId, reviewId, navigate) {
+export function deleteReview(productId, reviewId, navigate, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("DELETE", DELETE_REVIEW, {productId, reviewId});
+            const response = await apiConnector("DELETE", DELETE_REVIEW, {productId, reviewId}, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("Review Deleted Successfully");

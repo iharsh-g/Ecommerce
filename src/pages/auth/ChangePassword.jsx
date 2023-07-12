@@ -35,7 +35,7 @@ function ChangePassword() {
             return;
         }
 
-        dispatch(changePassword(data, navigate));
+        dispatch(changePassword(data, navigate, token));
     }
 
     return (

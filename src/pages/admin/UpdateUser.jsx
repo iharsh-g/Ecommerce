@@ -26,7 +26,7 @@ function UpdateUser() {
             navigate("/account");
         }
 
-        dispatch(fetchUser(id));
+        dispatch(fetchUser(id, token));
     }, [userDetails]);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ function UpdateUser() {
     }, [userDetail])
 
     function updateHandler(id) {
-        dispatch(updateUser(id, role, navigate))
+        dispatch(updateUser(id, role, navigate, token))
     }
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import { AiFillDashboard } from 'react-icons/ai'
+import { AiFillDashboard, AiOutlineShoppingCart } from 'react-icons/ai'
 import { RiAccountCircleFill } from 'react-icons/ri'
 import { BsCartCheckFill } from 'react-icons/bs';
 import { TbLogin } from 'react-icons/tb'
@@ -28,7 +28,7 @@ const SidebarItems = [
 
 function MainSidebar({setSidebar, sidebar, matchRoute, token, userDetails, logoutHandler}) {
     return (
-        <div className='h-full bg-blue-900 '>
+        <div className='h-full bg-blue-900 overflow-x-auto'>
             <div>
                 <div className='px-3 pb-7 pt-3 w-fit'  onClick={() => setSidebar(!sidebar)}>
                     <RxCross2 fontSize={'2rem'}/>
@@ -38,6 +38,10 @@ function MainSidebar({setSidebar, sidebar, matchRoute, token, userDetails, logou
                     <Link to={"/products"} onClick={() => setSidebar(!sidebar)}>
                         <p className={`px-4 py-2 ${matchRoute("/products") ? 
                         'bg-yellow-400 text-yellow-800 border-l-4 border-l-yellow-600' : 'text-white'} font-bold tracking-wide`}>Products</p>
+                    </Link>
+                    <Link to={"/search"} onClick={() => setSidebar(!sidebar)}>
+                        <p className={`px-4 py-2 ${matchRoute("/search") ? 
+                        'bg-yellow-400 text-yellow-800 border-l-4 border-l-yellow-600' : 'text-white'} font-bold  tracking-wide`}>Search</p>
                     </Link>
                     <Link to={"/about"} onClick={() => setSidebar(!sidebar)}>
                         <p className={`px-4 py-2 ${matchRoute("/about") ? 
@@ -116,6 +120,11 @@ function MainSidebar({setSidebar, sidebar, matchRoute, token, userDetails, logou
                         <Link to={"/account"} className={`flex items-center gap-2 px-4 py-2  ${matchRoute("/account") ? 'bg-yellow-400 text-yellow-800 border-l-4 border-l-yellow-600' : ''}`}
                         onClick={() => setSidebar(!sidebar)}>
                             <RiAccountCircleFill className='text-lg'/> Account 
+                        </Link>
+
+                        <Link to={"/cart"} className={`flex items-center gap-2 px-4 py-2  ${matchRoute("/cart") ? 'bg-yellow-400 text-yellow-800 border-l-4 border-l-yellow-600' : ''}`}
+                        onClick={() => setSidebar(!sidebar)}>
+                            <AiOutlineShoppingCart className='text-lg'/> Cart 
                         </Link>
 
                         <Link to={"/orders"} className={`flex items-center gap-2 px-4 py-2  ${matchRoute("/orders") ? 'bg-yellow-400 text-yellow-800 border-l-4 border-l-yellow-600' : ''}`} 

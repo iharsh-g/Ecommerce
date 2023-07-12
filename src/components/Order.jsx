@@ -4,18 +4,21 @@ import { useParams } from 'react-router-dom'
 import { fetchSingleOrder } from '../redux/services/operations/orderApi';
 import Loader from './Loader';
 import CartItemCard from './Admin/CartItemCard';
+import { useSelector } from 'react-redux';
 
 function Order() {
     const {orderId} = useParams();
     const [orderDetails, setOrderDetails] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const {token} = useSelector((state) => state.auth);
+
     async function getOrderDetails() {
         const toastId = toast.loading("Loading...");
         setLoading(true);
 
         try {
-            const response = await fetchSingleOrder(orderId);
+            const response = await fetchSingleOrder(orderId, token);
             setOrderDetails(response);
             // console.log(response);
         }

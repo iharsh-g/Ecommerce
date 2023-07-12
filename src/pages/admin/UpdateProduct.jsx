@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
-import { fectchProductDetails, updateProduct } from '../../redux/services/operations/adminApi'
+import { fetchProductDetails, updateProduct } from '../../redux/services/operations/adminApi'
 import { HiPencilSquare } from 'react-icons/hi2';
 import { MdCategory, MdDescription } from 'react-icons/md';
 import { IoMdPricetags } from 'react-icons/io';
@@ -42,7 +42,7 @@ function UpdateProduct() {
             navigate("/account");
         }
 
-        dispatch(fectchProductDetails(id));
+        dispatch(fetchProductDetails(id, token));
     }, [userDetails]);
 
     function isFormUpdated() {
@@ -98,7 +98,7 @@ function UpdateProduct() {
                 }
             }
 
-            dispatch(updateProduct(id, formData, navigate));
+            dispatch(updateProduct(id, formData, navigate, token));
         }
         else {
             toast.error("No Changes Made to the Product!");

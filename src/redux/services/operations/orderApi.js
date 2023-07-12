@@ -4,11 +4,11 @@ import { apiConnector } from "../apiConnector";
 
 const { FETCH_ORDERS, FETCH_ORDER_WITH_ID } = orders
 
-export async function fetchUserOrders() {
+export async function fetchUserOrders(token) {
     let result = [];
 
     try {
-        const response = await apiConnector("GET", FETCH_ORDERS);
+        const response = await apiConnector("GET", FETCH_ORDERS, null, { Authorization: `Bearer ${token}`});
 
         if(!response?.data?.success) {
             throw new Error("Could not get Orders");
@@ -24,12 +24,11 @@ export async function fetchUserOrders() {
     return result;
 }
 
-
-export async function fetchSingleOrder(id) {
+export async function fetchSingleOrder(id, token) {
     let result = [];
 
     try {
-        const response = await apiConnector("GET", `${FETCH_ORDER_WITH_ID}/${id}`);
+        const response = await apiConnector("GET", `${FETCH_ORDER_WITH_ID}/${id}`, null, { Authorization: `Bearer ${token}`});
 
         if(response.data.success) {
             result = response.data.orderDetails;

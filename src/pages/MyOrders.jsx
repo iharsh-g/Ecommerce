@@ -4,17 +4,20 @@ import Loader from '../components/Loader'
 import {Table, Thead, Tbody, Tr, Th, Td} from 'react-super-responsive-table'
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function MyOrders() {
     const [loading, setLoading] = useState(false);
     const [orders, setOrders] = useState([]);
     const navigate = useNavigate();
 
+    const {token} = useSelector((state) => state.auth);
+
     async function getMyOrders() {
         setLoading(true);
 
         try {
-            const response = await fetchUserOrders();
+            const response = await fetchUserOrders(token);
             setOrders(response);
             // console.log(response);
         }

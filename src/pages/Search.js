@@ -10,23 +10,26 @@ function Search() {
 
     const dispatch = useDispatch();
     const {allProducts, isLoading} = useSelector((state) => state.products);
+    const {token} = useSelector((state) => state.auth);
 
     function submitHandler() {
-        dispatch(fetchProducts(true, keyword))
+        dispatch(fetchProducts(true, keyword, token))
     }
 
     return (
         <div>
-            <div className='w-[1200px] mx-auto flex flex-col items-center min-h-[600px]'>
-                <div className='flex items-center'>
-                    <input className='w-[800px] border px-5 py-3 rounded-l-xl' placeholder='Search a Product...' onChange={(e) => setKeyword(e.target.value)}/>
+            <div className='max-w-[1200px] mx-auto flex flex-col items-center min-h-[600px]'>
+                <div className='w-full'>
+                    <div className='flex items-center mx-auto lg:w-[800px] w-full lg:px-0 px-5'>
+                        <input className='border px-5 py-3 rounded-l-xl w-full' placeholder='Search a Product...' onChange={(e) => setKeyword(e.target.value)}/>
 
-                    <div className='px-5 py-3 rounded-r-xl bg-red-500 hover:bg-red-700 transition-all duration-300 text-white cursor-pointer' onClick={submitHandler}>
-                        <BsSearch fontSize={'1.5rem'}/>
+                        <div className='px-5 py-3 rounded-r-xl bg-red-500 hover:bg-red-700 transition-all duration-300 text-white cursor-pointer' onClick={submitHandler}>
+                            <BsSearch fontSize={'1.5rem'}/>
+                        </div>
                     </div>
                 </div>
 
-                <div className=' grid md:grid-cols-4 grid-cols-2 gap-x-5 gap-y-3 px-3 py-3 items-baseline'>
+                <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-x-5 gap-y-3 px-3 py-3 items-baseline'>
                     {
                         allProducts &&
                         allProducts.length === 0 ? 

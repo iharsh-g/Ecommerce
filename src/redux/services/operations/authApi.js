@@ -110,13 +110,13 @@ export function logoutUser(token, navigate) {
 }
 
 // Change Password 
-export function changePassword(data, navigate) {
+export function changePassword(data, navigate, token) {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            await apiConnector("PUT", CHANGE_PASSWORD, data);
+            await apiConnector("PUT", CHANGE_PASSWORD, data, { Authorization: `Bearer ${token}`});
 
             toast.success("Password Updated Successfully");
             navigate("/account");
@@ -203,13 +203,13 @@ export function fetchUserDetails(token) {
 }
 
 // Update User Name
-export function updateUserName(name) {
+export function updateUserName(name, token) {
     return async (dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setLoading(true));
 
         try {
-            const response = await apiConnector("PUT", UPDATE_USER_NAME, {name});
+            const response = await apiConnector("PUT", UPDATE_USER_NAME, {name}, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success("Name changed Successfull");

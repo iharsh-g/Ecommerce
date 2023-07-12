@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { delelteReview, fetchReviews } from '../../redux/services/operations/adminApi';
+import { deleteReview, fetchReviews } from '../../redux/services/operations/adminApi';
 import Sidebar from '../../components/Admin/Sidebar';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
@@ -42,7 +42,7 @@ function AllReviews() {
             return;
         }
         
-        dispatch(fetchReviews(productId));
+        dispatch(fetchReviews(productId, token));
     }
 
     // When admin click on the delete icon
@@ -65,8 +65,8 @@ function AllReviews() {
         }
 
         setOpen(false);
-        await dispatch(delelteReview(productId, reviewId, navigate))
-        dispatch(fetchReviews(productId));
+        await dispatch(deleteReview(productId, reviewId, navigate, token))
+        dispatch(fetchReviews(productId, token));
     }
 
     return (

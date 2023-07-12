@@ -6,7 +6,7 @@ import { getFilteredProducts, getProduct, getProducts, setProductLoading } from 
 const { ADD_REVIEW, FETCH_PRODUCTS, FETCH_PRODUCT_WITH_ID } = products
 
 // Fetch "Products" using keyword for Search, and for Home
-export function fetchProducts(isSearch, keyword) {
+export function fetchProducts(isSearch, keyword, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setProductLoading(true));
@@ -14,12 +14,12 @@ export function fetchProducts(isSearch, keyword) {
         try {
             let response;
             if(isSearch) {
-                response = await apiConnector("GET", FETCH_PRODUCTS, null, null, {
+                response = await apiConnector("GET", FETCH_PRODUCTS, null, { Authorization: `Bearer ${token}`}, {
                     keyword: keyword,
                 });
             }
             else {
-                response = await apiConnector("GET", FETCH_PRODUCTS, null, null, {
+                response = await apiConnector("GET", FETCH_PRODUCTS, null, { Authorization: `Bearer ${token}`}, {
                     keyword: '',
                     page: 1,
                     price: { gte: 2000, lte: 190000 },
@@ -43,7 +43,7 @@ export function fetchProducts(isSearch, keyword) {
 }
 
 // Fetch Filtered Products
-export function fetchFilterProducts(category, currentPage, value, rating) {
+export function fetchFilterProducts(category, currentPage, value, rating, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setProductLoading(true));
@@ -52,7 +52,7 @@ export function fetchFilterProducts(category, currentPage, value, rating) {
 
             let response;
             if(category === "All") {
-                response = await apiConnector("GET", FETCH_PRODUCTS, null, null, {
+                response = await apiConnector("GET", FETCH_PRODUCTS, null, { Authorization: `Bearer ${token}`}, {
                     keyword: '',
                     page: currentPage,
                     price: { gte: value[0], lte: value[1] },
@@ -60,7 +60,7 @@ export function fetchFilterProducts(category, currentPage, value, rating) {
                 });
             }
             else {
-                response = await apiConnector("GET", products.FETCH_PRODUCTS, null, null, {
+                response = await apiConnector("GET", products.FETCH_PRODUCTS, null, { Authorization: `Bearer ${token}`}, {
                     keyword: '',
                     page: currentPage,
                     price: { gte: value[0], lte: value[1] },
@@ -83,13 +83,13 @@ export function fetchFilterProducts(category, currentPage, value, rating) {
 }
 
 // Fetch Product by ID
-export function fetchProductById(productId) {
+export function fetchProductById(productId, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setProductLoading(true));
 
         try {
-            const response = await apiConnector("GET", `${FETCH_PRODUCT_WITH_ID}/${productId}`);
+            const response = await apiConnector("GET", `${FETCH_PRODUCT_WITH_ID}/${productId}`, null, { Authorization: `Bearer ${token}`});
 
             if (response.data.success) {
                 dispatch(getProduct(response.data.productDetails[0]));
@@ -105,7 +105,7 @@ export function fetchProductById(productId) {
 }
 
 // Create or Update the review
-export function addOrUpdateReview(productId, rating, review) {
+export function addOrUpdateReview(productId, rating, review, token) {
     return async(dispatch) => {
         const toastId = toast.loading("Loading...");
         dispatch(setProductLoading(true));
@@ -114,7 +114,7 @@ export function addOrUpdateReview(productId, rating, review) {
             const response = await apiConnector("PUT", ADD_REVIEW, {
                 productId, rating, 
                 comment: review
-            });
+            }, { Authorization: `Bearer ${token}`});
 
             if(response.data.success) {
                 toast.success(response.data.message);

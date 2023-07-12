@@ -27,9 +27,9 @@ function Dashboard() {
             navigate("/account");
         }
 
-        dispatch(fetchProducts());
-        dispatch(fetchUsers());
-        dispatch(fetchOrders());
+        dispatch(fetchProducts(token));
+        dispatch(fetchUsers(token));
+        dispatch(fetchOrders(token));
     }, [userDetails]);
 
     let inStock = 0;

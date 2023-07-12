@@ -33,7 +33,7 @@ function Products() {
             navigate("/account");
         }
 
-        dispatch(fetchProducts());
+        dispatch(fetchProducts(token));
     }, [userDetails]);
 
     function updateProductHandler(id) {
@@ -54,8 +54,8 @@ function Products() {
     // When admin click in the dialog box to delete
     async function deleteProductHandler() {
         setOpen(false);
-        await dispatch(deleteProduct(deleteId, navigate))
-        dispatch(fetchProducts());
+        await dispatch(deleteProduct(deleteId, navigate, token))
+        dispatch(fetchProducts(token));
     }
 
     return (

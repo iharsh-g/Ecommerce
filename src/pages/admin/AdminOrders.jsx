@@ -34,7 +34,7 @@ function AdminOrders() {
             navigate("/account");
         }
 
-        dispatch(fetchOrders());
+        dispatch(fetchOrders(token));
     }, [userDetails]);
 
     function updateOrderHandler(id) {
@@ -55,8 +55,8 @@ function AdminOrders() {
     // When admin click in the dialog box to delete
     async function deleteOrderHandler() {
         setOpen(false);
-        await dispatch(deleteOrder(deleteId, navigate))
-        dispatch(fetchOrders());
+        await dispatch(deleteOrder(deleteId, navigate, token))
+        dispatch(fetchOrders(token));
     }
   
     return (
