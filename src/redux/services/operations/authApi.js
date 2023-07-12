@@ -2,31 +2,29 @@ import { toast } from 'react-hot-toast';
 import { user } from "../api";
 import { apiConnector } from '../apiConnector'
 import { setUser, setLoading } from "../../slices/userSlice";
-import { setToken, setAuthenticated } from '../../slices/authSlice';
+import { setToken } from '../../slices/authSlice';
 import { clearCartItems } from '../../slices/cartSlice';
 
 const { CHANGE_PASSWORD, FORGOT_PASSWORD, FORGOT_PASSWORD_TOKEN, LOGOUT, LOGIN, SIGNUP,
         UPDATE_USER_NAME, USER_DETAILS, AUTHENTICATED_USER} = user;
 
 // Authentication
-export function authenticatedUser(token, navigate, children) {
-    return async (dispatch) => {
-        try { 
-            const response = await apiConnector("GET", AUTHENTICATED_USER);
+export async function authenticatedUser(token, navigate) {
+    let result = false;
+    try { 
+        const response = await apiConnector("GET", AUTHENTICATED_USER,  null, { Authorization: `Bearer ${token}`});
 
-            if(response.data.success) {
-                dispatch(setAuthenticated(true));
-            }  
-        }
-        catch (error) {
-            await dispatch(setAuthenticated(false));
+        if(!response.data.success) {
+            throw new Error("User is not autheticated");
+        }  
 
-            if(token) {
-                await dispatch(logoutUser(token, navigate));
-                navigate("/login");
-            }
-        }
+        result = true;
     }
+    catch (error) {
+        toast.error("Can't fetch Details");
+    }
+
+    return result;
 }
 
 // Signup

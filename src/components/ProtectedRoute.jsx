@@ -1,22 +1,32 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { authenticatedUser } from '../redux/services/operations/authApi';
-import { useNavigate } from 'react-router-dom';
+import { authenticatedUser, logoutUser } from '../redux/services/operations/authApi';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function ProtectedRoute({children}) {
     const dispatch = useDispatch();
-    const {token, isAuthenticated} = useSelector((state) => state.auth);
+    const {token} = useSelector((state) => state.auth);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token) {
-          navigate('/login');
+      async function isAuthenticatedUser() {
+        const response = await authenticatedUser(token, navigate);
+        // console.log("Response", response);
+        if(!response) {
+          dispatch(logoutUser(token, navigate));
         }
+      }
+      
+      if(token) {
+        isAuthenticatedUser();
+      }
+    }, [token]);
     
-        dispatch(authenticatedUser(token, navigate));
-    }, [dispatch, navigate, token]);
-    
-    return isAuthenticated ? children : null;
+    if(token === null) {
+      return <Navigate to="/login" />
+    }
+
+    return children;
 }
 
 export default ProtectedRoute
