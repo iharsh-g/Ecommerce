@@ -6,13 +6,13 @@ import { setToken, setAuthenticated } from '../../slices/authSlice';
 import { clearCartItems } from '../../slices/cartSlice';
 
 const { CHANGE_PASSWORD, FORGOT_PASSWORD, FORGOT_PASSWORD_TOKEN, LOGOUT, LOGIN, SIGNUP,
-        UPDATE_USER_NAME, USER_DETAILS, } = user;
+        UPDATE_USER_NAME, USER_DETAILS, AUTHENTICATED_USER} = user;
 
 // Authentication
 export function authenticatedUser(token, navigate, children) {
     return async (dispatch) => {
         try { 
-            const response = await apiConnector("GET", 'http://localhost:4000/api/v1/authenticated');
+            const response = await apiConnector("GET", AUTHENTICATED_USER);
 
             if(response.data.success) {
                 dispatch(setAuthenticated(true));

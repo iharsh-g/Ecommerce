@@ -12,7 +12,8 @@ export const user = {
     UPDATE_USER_NAME: BASE_URL + '/me/updateProfile',
 
     ADMIN_ALL_USERS: BASE_URL + '/admin/users',
-    ADMIN_USER: BASE_URL + '/admin/user'
+    ADMIN_USER: BASE_URL + '/admin/user',
+    AUTHENTICATED_USER: BASE_URL + '/authenticated'
 }
 
 export const products = {
